@@ -1,0 +1,36 @@
+.app-login {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mat-card {
+        width: 400px;
+        max-width: 100%;
+        padding: 54px 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+
+        mat-card-header{
+            justify-content: center;
+            padding-bottom: 40px;
+        }
+
+        mat-card-content {
+            height: 200px;
+
+            mat-form-field{
+                width: 100%;
+            }
+        }
+
+        mat-card-actions {
+            .btn-submit {
+                margin-left: 10px;
+                margin-right: 10px;
+                height: 56px;
+                width: 100%;
+                font-size: 20px;
+            }
+        }
+    }
+}
