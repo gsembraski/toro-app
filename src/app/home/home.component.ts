@@ -1,17 +1,7 @@
 import { Component } from '@angular/core';
-
-interface Asset {
-  name: String,
-  code: String,
-  value: Number,
-  number: Number
-}
-
-interface PersonBalance {
-  balance: Number,//Saldo da conta corrente
-  overrun: Number,//Saldo do patrimonio
-  assets: Array<Asset> //Ativos
-}
+import PersonBalance from '../types/person-balance';
+import { PersonService } from '../core/services/person.service';
+import { map, catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -19,17 +9,15 @@ interface PersonBalance {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  item: PersonBalance;
-  constructor() {
-    this.item = {
-      balance: 0.0,
-      overrun: 250.0,
-      assets: [{
-        name: "Petrobras",
-        code: "PETR4",
-        value: 25.00,
-        number: 10
-      }]
-    };
+  item: PersonBalance | null = null;
+  
+  constructor(private personService: PersonService) {
+    this.personService.getWallet().pipe(map((response) => {
+      this.item = response.data;
+    }),
+      catchError((error) => {
+        console.error('Login error:', error);
+        return throwError('Login failed');
+      })).subscribe();
   }
 }
