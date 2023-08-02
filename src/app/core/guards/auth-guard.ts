@@ -9,12 +9,22 @@ export interface CanComponentDeactivate {
   canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
 }
 
-export function AuthGuard(component: CanComponentDeactivate, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState: RouterStateSnapshot): CanActivateFn {
+export function AuthGuard(): CanActivateFn {
   const authService = inject(AuthService);
   const router = inject(Router);
 
   if (!authService.isLoggedIn()) {
     router.navigate(["/login"]);
+  }
+  return () => true
+}
+
+export function LoginGuard(): CanActivateFn {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  if (authService.isLoggedIn()) {
+    router.navigate(["/"]);
   }
   return () => true
 }

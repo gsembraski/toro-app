@@ -12,7 +12,7 @@ export class AuthService {
   private apiRoute = `${environment.apiUrl}/user`
 
   login(data: any) {
-    return this.http.post<any>(`${this.apiRoute}/authenticate`, data);
+    return this.http.post<any>(`${this.apiRoute}/auth`, data);
   }
 
   logout() {

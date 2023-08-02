@@ -1,1 +1,34 @@
-<p>home works!</p>
+<mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+        <div class="amount-content">
+            <div class="content">
+                <div class="label">Saldo disponível:</div>
+                <div class="info">{{(item.balance || 0).toString() | currency:'BRL':'R$':'1.2-2'}}</div>
+            </div>
+
+            <div class="content">
+                <div class="label">Saldo total:</div>
+                <div class="info">{{(item.overrun || 0).toString() | currency:'BRL':'R$':'1.2-2'}}</div>
+            </div>
+        </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="2" *ngFor="let asset of item.assets">
+        <mat-card>
+            <mat-card-header>
+                {{asset.code}}
+            </mat-card-header>
+
+            <mat-card-content>
+                <mat-divider></mat-divider>
+
+                <p class="decription">{{asset.name}}</p>
+
+                <div class="content-info">
+                    <p> {{(asset.value).toString() | currency:'BRL':'R$':'1.2-2'}}</p>
+                    <p>{{asset.number}}</p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
